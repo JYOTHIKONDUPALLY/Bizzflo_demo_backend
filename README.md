@@ -61,15 +61,10 @@ This platform enables franchises to manage multiple stores with localized settin
 | Layer       | Tech                                    |
 |-------------|------------------------------------------|
 | **Backend** | Laravel 12 (REST API)                    |
-| **Auth**    | JWT-based (Employees & Customers)        |
+| **Auth**    | Personal-Access-based
+                          (Employees & Customers)        |
 | **Database**| MySQL 8 with UUID + auto-increment IDs   |
 | **Testing** | Seeders and dummy data for CRUD, reports |
 | **Frontend**| Not included (API-ready for SPA/Mobile)  |
 
----
 
-## 🧪 Testing & Dummy Data
-
-- Preloaded dummy records for users, products, orders, etc.
-- Ready to validate CRUD flows, access control, and reporting.
-- Use `php artisan migrate:fresh --seed` for setup.
