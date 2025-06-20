@@ -75,4 +75,12 @@ class AuthController extends Controller
          200
       );
    }
+    function CustomerLogout(Request $request){
+      $response = $this->customerService->logoutCustomer($request);
+      return new ApiResponseResource(
+         $response,
+         '',
+         200
+      );
+   }
 }

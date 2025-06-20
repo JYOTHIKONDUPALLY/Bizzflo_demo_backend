@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Interface\UserServiceInterface;
 use App\Http\Resources\ApiResponseResource;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResponseResource;
 use App\Domains\User\Requests\GetUserRequest;
 
 class UserController extends Controller
@@ -27,7 +28,7 @@ class UserController extends Controller
                 $validated['limit'] ?? 10,
                 $validated['id'] ?? ''
             );
-            return ApiResponseResource::collection($users);
+            return UserResponseResource::collection($users);
         }catch (\Exception $e){
             return response()->json([
                 'error' => 'true',
