@@ -1,61 +1,75 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏪 Multi-Tenant E-commerce + POS Platform Backend
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel 12-powered backend for a multi-tenant E-commerce and POS platform tailored for **franchise businesses** (e.g., KFC, McDonald’s), supporting **FFL compliance**, **multi-location inventory**, **customer/employee portals**, and **franchise-specific customization**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Project Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This platform enables franchises to manage multiple stores with localized settings (inventory, pricing, staff), while maintaining central control and compliance, especially for FFL-regulated products. The backend is **API-driven** and designed for seamless integration with various frontends (React, Vue, mobile apps).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🎯 Core Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### ✅ Multi-Franchise & Multi-Location
+- Each franchise (e.g., KFC, McDonald's) can have multiple branches.
+- Branch-specific inventory, pricing, employees, and branding.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### ✅ Customer Portal (API-ready)
+- Product browsing and ordering (e-commerce or in-store).
+- Order tracking, profile management, and branded experience.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### ✅ Employee Portal (API-ready)
+- Role-based access for managers, cashiers, staff.
+- Order processing, customer interaction, and daily operations.
 
-## Laravel Sponsors
+### ✅ Products
+- Master product list at franchise level.
+- Location-specific overrides (price, availability).
+- FFL product support with background checks and ATF 4473 compliance.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### ✅ Orders & Payments
+- Unified flow for online and in-store (POS) orders.
+- Partial payments and multi-method transactions (cash, card, wallets, gift cards, external deals).
 
-### Premium Partners
+### ✅ Promotions & Deals
+- Internal campaigns (coupons, discounts).
+- External integration with platforms like **Groupon**.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### ✅ Inventory Management
+- Real-time stock tracking at each location.
+- Alerts for low-stock, expiry, and reorder thresholds.
 
-## Contributing
+### ✅ FFL Compliance
+- ATF 4473 digital form support.
+- Background check integration and validation flows.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### ✅ Audit Logs
+- Track every `create`, `update`, `delete` with actor and timestamp.
+- Useful for compliance, support, and rollback logic.
 
-## Code of Conduct
+### ✅ Accounting & GL Reporting
+- General Ledger with double-entry bookkeeping.
+- Accrual & cash-based financial statements.
+- P&L, balance sheets, and transaction reports.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## ⚙️ Technical Stack
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+| Layer       | Tech                                    |
+|-------------|------------------------------------------|
+| **Backend** | Laravel 12 (REST API)                    |
+| **Auth**    | JWT-based (Employees & Customers)        |
+| **Database**| MySQL 8 with UUID + auto-increment IDs   |
+| **Testing** | Seeders and dummy data for CRUD, reports |
+| **Frontend**| Not included (API-ready for SPA/Mobile)  |
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🧪 Testing & Dummy Data
+
+- Preloaded dummy records for users, products, orders, etc.
+- Ready to validate CRUD flows, access control, and reporting.
+- Use `php artisan migrate:fresh --seed` for setup.
