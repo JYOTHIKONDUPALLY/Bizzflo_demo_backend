@@ -61,10 +61,118 @@ This platform enables franchises to manage multiple stores with localized settin
 | Layer       | Tech                                    |
 |-------------|------------------------------------------|
 | **Backend** | Laravel 12 (REST API)                    |
-| **Auth**    | Personal-Access-based
-                          (Employees & Customers)        |
+| **Auth**    | Personal-Access-based (Employees & Customers)|
 | **Database**| MySQL 8 with UUID + auto-increment IDs   |
-| **Testing** | Seeders and dummy data for CRUD, reports |
-| **Frontend**| Not included (API-ready for SPA/Mobile)  |
+
+
+
+## 📘 Getting Started
+
+1. Clone the repo  
+   git clone https://github.com/JYOTHIKONDUPALLY/Bizzflo_demo_backend.git
+   cd Bizzflo_demo_backend
+   
+2. Install dependencies:
+   composer install
+
+3. Configure environment:
+    cp .env.example .env 
+    php artisan key:generate
+
+4. Setup database:
+   php artisan migrate --seed
+
+5. Start development server:
+   php artisan serve
+
+   # ✅ Milestone Plan: Backend API Development (4 Weeks)
+
+---
+
+## 📅 Week 1: Core Setup + Auth + Multi-tenancy (40 hrs)
+
+| Task                                                                 | Hours |
+|----------------------------------------------------------------------|--------|
+| Laravel 12 project setup & tenant scaffolding (domains, middleware) | 8 hrs  |
+| Auth system with JWT (Customers & Employees)                        | 10 hrs |
+| Role & Permission middleware setup (Policies/Gates or Spatie Roles) | 6 hrs  |
+| Seeders for dummy users (franchise owners, staff, customers)        | 4 hrs  |
+| Product master module (CRUD at franchise level)                     | 8 hrs  |
+| Swagger + Postman setup for Auth & Products                         | 4 hrs  |
+
+**Deliverables:**
+- ✅ Working auth (multi-guard)
+- ✅ Tenant recognition (middleware or subdomain-based)
+- ✅ Product master API
+- ✅ Swagger/Postman for auth + products
+
+---
+
+## 📅 Week 2: Orders + Inventory + Customer APIs (40 hrs)
+
+| Task                                                      | Hours |
+|-----------------------------------------------------------|--------|
+| Order API: POS + online unified structure                 | 12 hrs |
+| Customer cart + checkout APIs                             | 6 hrs  |
+| Payment flow setup (multi-method, cash/card/gift/etc.)    | 6 hrs  |
+| Location-wise inventory model + APIs                      | 8 hrs  |
+| Customer portal APIs (orders, profile, status tracking)   | 6 hrs  |
+| Swagger + Postman for Orders + Inventory                  | 2 hrs  |
+
+**Deliverables:**
+- ✅ End-to-end order flow (create, update status)
+- ✅ Inventory sync per location
+- ✅ Customer-side API endpoints
+- ✅ Order and inventory docs in Swagger/Postman
+
+---
+
+## 📅 Week 3: Promotions + Employee Portal + Audit Logs (40 hrs)
+
+| Task                                                         | Hours |
+|--------------------------------------------------------------|--------|
+| Internal/external promotions logic (e.g., coupons, Groupon)  | 6 hrs  |
+| Apply promo rules to cart/order                              | 4 hrs  |
+| Employee APIs (order manage, product stock update, etc.)     | 8 hrs  |
+| Audit logs with actor tracking (create, update, delete)      | 8 hrs  |
+| Basic reporting endpoints (sales summary, stock alerts)      | 6 hrs  |
+| Swagger + Postman for Promos, Employees, Reports             | 4 hrs  |
+| Testing & fix round 1                                        | 4 hrs  |
+
+**Deliverables:**
+- ✅ Promotions + deals engine
+- ✅ Employee panel API ready
+- ✅ Logging with model observers or DB-based audit
+- ✅ Reporting prototype
+
+---
+
+## 📅 Week 4: GL Accounting + Final QA + Docs (40 hrs)
+
+| Task                                                      | Hours |
+|-----------------------------------------------------------|--------|
+| GL Engine (transaction model, account categories)         | 12 hrs |
+| Bookkeeping entries for orders, refunds, etc.             | 6 hrs  |
+| Financial APIs (P&L, balance sheet, ledger exports)       | 6 hrs  |
+| Final QA testing + seed real-world data                   | 6 hrs  |
+| Finalize Swagger documentation & Postman export           | 6 hrs  |
+| Developer handoff docs or API usage notes                 | 4 hrs  |
+
+**Deliverables:**
+- ✅ Financial module MVP
+- ✅ Fully tested API with seed data
+- ✅ Final docs (Swagger, Postman, usage notes)
+
+---
+
+## ✅ Summary
+
+| Milestone                | Hours  | Key Deliverables                                      |
+|--------------------------|--------|--------------------------------------------------------|
+| Week 1: Setup + Auth      | 40 hrs | Auth, Tenant flow, Product Master                      |
+| Week 2: Orders + Inventory| 40 hrs | Orders, Inventory, Customer APIs                       |
+| Week 3: Promos + Audit    | 40 hrs | Promotions, Employee APIs, Audit Logs, Reports         |
+| Week 4: GL + QA + Docs    | 40 hrs | GL Accounting, Swagger, Postman, Final API polishing   |
+
 
 
