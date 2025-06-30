@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Domains\User\Actions;
 
 use App\Domains\User\Models\User;
@@ -11,8 +12,8 @@ class AuthenticateUserLoginAction
     {
         try {
             $user = User::where('email', $data['email'])
-            ->where('location_id', $data['location_id'])
-            ->first();
+                ->where('location_id', $data['location_id'])
+                ->first();
             if (!$user) {
                 return [
                     'error' => 'false',
@@ -39,11 +40,7 @@ class AuthenticateUserLoginAction
                 ]
             ];
         } catch (\Exception $e) {
-          throw new \Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
-
     }
 }
-
-
-?>

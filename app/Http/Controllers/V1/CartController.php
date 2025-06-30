@@ -5,6 +5,8 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use App\Interface\CartServiceInterface;
 use App\Http\Resources\CartResource;
+use App\Domains\Cart\Requests\{AddRequest,CheckoutRequest};
+use App\Http\Resources\ApiResponseResource;
 
 class CartController extends Controller
 {
@@ -21,10 +23,10 @@ class CartController extends Controller
         return CartResource::collection($cart);
 
     }
-    public function AddToCart($request) {
-        $customerId = auth('customer')->user()->id;
-        $cart = $this->cartService->AddToCart($customerId,$request);
-        return CartResource::collection($cart);
+    public function AddToCart(AddRequest $request) {
+        $validated = $request->validated();
+        $cart = $this->cartService->AddToCart($validated);
+        return new ApiResponseResource($cart,"Added to Cart!!", 200);
     }
 
     public function RemoveFromCart($request) {
@@ -36,6 +38,12 @@ class CartController extends Controller
         $customerId = auth('customer')->user()->id;
         $cart = $this->cartService->UpdateCart($customerId,$request);
         return CartResource::collection($cart);
+    }
+
+    public function CheckoutFromCart( CheckoutRequest $request) {
+         $validated = $request->validated();
+        $cart = $this->cartService->CheckoutFromCart($validated);
+        return new ApiResponseResource($cart,"Checkout Successfully!!", 200);
     }
 
 }

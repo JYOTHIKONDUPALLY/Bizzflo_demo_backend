@@ -7,6 +7,7 @@ interface CartServiceInterface
     public function RemoveFromCart($request);
     public function GetCart($request);
     public function UpdateCart($request);
+    public function CheckoutFromCart($request);
 }
 
 ?>
