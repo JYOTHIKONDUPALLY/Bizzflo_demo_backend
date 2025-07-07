@@ -30,7 +30,7 @@ class GetAllProductsAction
             return $query->get();
         } catch (\Exception $e) {
             // Handle or log the exception as needed
-            return response()->json(['error' => 'An error occurred while fetching products'], 500);
+            return response()->json(['error' => 'An error occurred while fetching products', $e->getMessage()], 500);
         }
     }
 }

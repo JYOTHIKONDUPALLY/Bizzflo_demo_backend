@@ -19,6 +19,7 @@ class CreateProductRequest extends BaseApiRequest
             "product_id"=>"string|nullable",
             "name" => "required|string",
             "sku"=>"required|string",
+            "category_id"=> "required | string",
             "brand"=>"required|string",
             "base_price"=>"required|numeric",
             "cost_price"=>"required|numeric",
@@ -29,6 +30,10 @@ class CreateProductRequest extends BaseApiRequest
             "tenant_id"=>"required|string",
             "category_id"=>"required|string",
             "tax_rate_id"=>"required|string",
+            "variants"=>"array ",
+            "variants.*.price_difference"=>"required|numeric|min:0",
+            "variants.*.sku_suffix"=>"required|string",
+            "variants.*.name"=>"required|string",
         ];
     }
 }

@@ -12,9 +12,9 @@ class GetUserRequest extends BaseApiRequest
 
     public function rules(): array{
         return [
-            'page' => 'numeric',
-            'order' => 'in:asc,desc',
-            'limit' => 'numeric',
+            'page' => 'numeric|nullable',
+            'order' => 'in:asc,desc|nullable',
+            'limit' => 'numeric|nullable',
             'search'=> 'string|nullable',
             'id' => 'string|nullable',
         ];

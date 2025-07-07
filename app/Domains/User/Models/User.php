@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
 use App\Models\Roles;
 use App\Models\locations;
-
+use App\Models\Permissions;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -58,13 +58,21 @@ class User extends Authenticatable
 
     public function role()
 {
-    return $this->belongsTo(Roles::class);
+    return $this->belongsTo(Roles::class , 'role_id', 'role_id');
 }
 
 public function location()
 {
-    return $this->belongsTo(Locations::class);
+    return $this->belongsTo(Locations::class , 'location_id', 'location_id');
 }
+
+public function getFullNameAttribute()
+{
+    return trim($this->first_name . ' ' . $this->last_name);
+}
+
+
+
     protected static function boot()
     {
         parent::boot();

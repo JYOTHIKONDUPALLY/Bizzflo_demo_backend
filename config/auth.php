@@ -41,17 +41,21 @@ return [
             'provider' => 'users',
         ],
         'customer' => [
-        'driver' => 'sanctum',
-        'provider' => 'customers',
-    ],
-    'api' => [
-        'driver' => 'sanctum', // Make sure this is set to sanctum
-        'provider' => 'users',
-    ],
-    'admin'=>[
-      'driver' => 'sanctum',
-       'provider' => 'admins',  
-    ]
+            'driver' => 'sanctum',
+            'provider' => 'customers',
+        ],
+        'api' => [
+            'driver' => 'sanctum', // Make sure this is set to sanctum
+            'provider' => 'users',
+        ],
+        'admin' => [
+            'driver' => 'sanctum',
+            'provider' => 'admins',
+        ],
+        'users' => [
+            'driver' => 'sanctum',
+            'provider' => 'users'
+        ],
     ],
 
     /*
@@ -76,11 +80,11 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Domains\User\Models\User::class),
         ],
-        'customer' => [
+        'customers' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Domains\Customer\Models\customers::class),
         ],
-          'admins' => [
+        'admins' => [
             'driver' => 'eloquent',
             'model' => App\Domains\Admin\Models\Admin::class,
         ],

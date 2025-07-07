@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 class admin extends Authenticatable
 {
+    protected $table = 'admin';
     use HasApiTokens, Notifiable;
 
     protected $fillable = [

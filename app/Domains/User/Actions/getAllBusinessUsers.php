@@ -1,30 +1,37 @@
 <?php
 namespace App\Domains\User\Actions;
 
+
+
 use App\Domains\User\Models\User;
 
-class getAllBusinessUsers
+class GetAllBusinessUsers
 {
-    public function handle($request){
-        try{
-            $query = User::query();
+    public function handle($request)
+    {
+        try {
+            $businessUsers = User::get();
+            // $query = User::query();
 
-            if($request->has("search")){
-                $query->where('name', 'like', '%' . $request->search . '%');
-            }
+            // if (!empty($request->search)) {
+            //     $query->where('name', 'like', '%' . $request->search . '%');
+            // }
 
-             if (!empty($sort) && !empty($order)) {
-                $query->orderBy($sort, $order);
-            }
-             if (!empty($limit)) {
-                return $query->limit($limit)->get();
-            }
+            // if (!empty($request->sort) && !empty($request->order)) {
+            //     $query->orderBy($request->sort, $request->order);
+            // }
 
-            if(!empty($id)) {
-                return $query->where('product_id', $id)->get();
-            }
-            return $query->get();
-        }catch(\Exception $e){
+            // if (!empty($request->limit)) {
+            //     return $query->limit($request->limit)->get();
+            // }
+
+            // if (!empty($request->id)) {
+            //     return $query->where('id', $request->id)->get();
+            // }
+
+            // return $query->get();
+            return $businessUsers;
+        } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
     }

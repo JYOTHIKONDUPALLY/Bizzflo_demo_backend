@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class products extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
      protected $primaryKey = 'product_id';
      protected $keyType = 'string'; 
      public $incrementing = false; 
-     protected $dates = ['deleted_at'];
+    //  protected $dates = ['deleted_at'];
        
      protected $fillable = [
         'tenant_id',
