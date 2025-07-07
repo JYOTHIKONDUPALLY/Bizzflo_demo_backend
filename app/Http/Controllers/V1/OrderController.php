@@ -7,6 +7,7 @@ use App\Interface\OrderServiceInterface;
 use App\Domains\Orders\Requests\OrderListRequest;
 use App\Http\Resources\ApiResponseResource;
 use App\Http\Resources\OrderResponseResource;
+use App\Domains\Orders\Requests\OrderSummaryRequest;
 
 
 
@@ -42,8 +43,14 @@ class OrderController extends Controller
         $orders = $this->orderService->placeOrder($request);
     }
 
-    public function OrderSummary($request){
-        $orders = $this->orderService->getOrderSummary($request);
+    public function OrderSummary( $order_id){
+        // $validated=$request->validated($request);
+        $orders = $this->orderService->getOrderSummary( $order_id);
+        return new ApiResponseResource(
+            $orders,
+            'order summary has been fetched successfully',
+            200
+        );
     }
 
     public function CancelOrder($request){

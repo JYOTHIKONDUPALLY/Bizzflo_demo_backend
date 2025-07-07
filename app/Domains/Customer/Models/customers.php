@@ -27,6 +27,12 @@ class customers extends Authenticatable
     protected $hidden = [
         'password_hash',
     ];
+
+    public function getFullNameAttribute()
+{
+    return trim($this->first_name . ' ' . $this->last_name);
+}
+
     protected static function boot()
     {
         parent::boot();

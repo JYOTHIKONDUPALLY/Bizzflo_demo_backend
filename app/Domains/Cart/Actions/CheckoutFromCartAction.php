@@ -15,7 +15,7 @@ class CheckoutFromCartAction
         if ($order) {
         $order->shipping_address_id = $request['shipping_address_id'];
         $order->billing_address_id = $request['billing_address_id'];
-        $order->status = 'Processing';
+        $order->status = 'Pending';
         $order->save();
         }
         else {

@@ -66,6 +66,12 @@ public function location()
     return $this->belongsTo(Locations::class , 'location_id', 'location_id');
 }
 
+public function getFullNameAttribute()
+{
+    return trim($this->first_name . ' ' . $this->last_name);
+}
+
+
 
     protected static function boot()
     {

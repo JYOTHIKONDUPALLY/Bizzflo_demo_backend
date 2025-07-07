@@ -9,7 +9,7 @@ class PlaceOrderAction
 {
     public function handle( $order)
     {
-        $order->update(['status' => 'cancelled']);
+        $order->update(['status' => 'Processing']);
         order_items::where('order_id', $order->id)->delete();
     }
 }

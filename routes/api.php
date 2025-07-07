@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\{
     AuthController,
@@ -9,9 +8,9 @@ use App\Http\Controllers\V1\{
     TenantController,
     UserController,
     OrderController,
-    PaymentController
+    PaymentController,
+    fflController
 };
-
 
 Route::prefix("Admin")->group(function () {
     Route::post('login', [AuthController::class, 'AdminLogin']);
@@ -29,9 +28,7 @@ Route::prefix("Admin")->group(function () {
 });
 
 Route::prefix('business')->group(function () {
-
     Route::post('login', [AuthController::class, 'businessLogin']);
-
     Route::middleware(\App\Http\Middleware\AuthenticateUser::class)->group(function () {
         Route::post('logout', [AuthController::class, 'businessLogout']);
         Route::middleware(['role:Admin,Franchise Owner'])->group(function () {
@@ -87,7 +84,7 @@ Route::prefix('cart')->middleware(['auth:customer,users'])->group(function () {
     Route::post('checkout', [CartController::class, 'CheckoutFromCart']);
 });
 
-Route::prefix('orders')->middleware(['auth:customer,users', 'role:Franchise Owner, Store Manager'])->group(function () {
+Route::prefix('orders')->group(function () {
     Route::post('all', [OrderController::class, 'OrdersList']);
     Route::post('{order_id}/place_order', [OrderController::class, 'PlaceOrder']);
     Route::post('{order_id}/summary', [OrderController::class, 'OrderSummary']);
@@ -100,4 +97,25 @@ Route::prefix('payment')->middleware(['auth:customer'])->group(function () {
     Route::post('history', [PaymentController::class, 'PaymentHistory']);
     Route::post('status', [PaymentController::class, 'paymentStatus']);
     Route::post('Refund', [PaymentController::class, 'RefundPayment']);
+});
+
+Route::prefix('pos')->middleware(['auth:users'])->group(function () {
+    Route::post('cart/add', [OrderController::class, 'PlaceOrder']);
+    Route::post('orders', [OrderController::class, 'placeorder']);
+    Route::post('hold', [OrderController::class, 'holdOrder']);
+    Route::post('hold/restore', [OrderController::class, 'restoreOrder']);
+    Route::post('pay', [PaymentController::class, 'initiatePayment']);
+    Route::post('invoice/{order_id} ', [OrderController::class, 'OrderSummary']);
+    Route::post('orders/history', [OrderController::class, 'historyOrder']);
+    Route::post('return', [PaymentController::class, 'refundPayment']);
+    Route::post('stocks', [ProductController::class, 'getInventory']);
+});
+
+Route::prefix('ffl')->group(function () {
+    Route::post('logbook', [fflController::class, 'logbook']);
+    Route::get('4473-forms', [fflController::class, 'forms']);
+    Route::get('multiple-sales', [fflController::class, 'multipleSales']);
+    Route::post('multiple-sales', [fflController::class, 'updateMultipleSales']);
+    Route::get('firearms', [fflController::class, 'getStatus']);
+    Route::get('{id}/history', [fflController::class, 'getHistory']);
 });

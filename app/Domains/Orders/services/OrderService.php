@@ -31,8 +31,8 @@ class OrderService implements OrderServiceInterface
         return  $this->getOrderListAction->handle($data);
     }
 
-    public function getOrderSummary($data){
-        return  $this->orderSummaryAction->handle($data);
+    public function getOrderSummary($id){
+        return  $this->orderSummaryAction->handle($id);
     }
     
 }
