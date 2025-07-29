@@ -9,9 +9,14 @@ use App\Http\Controllers\V1\{
     UserController,
     OrderController,
     PaymentController,
-    fflController
+    fflController, 
+    DashboardController,
+    CustomerController
 };
 
+
+    // Route::get('multiple-sales', [fflController::class, 'multipleSales']);
+Route::get('tenants-with-locations', [TenantController::class, 'getTenantsWithLocations']);
 Route::prefix("Admin")->group(function () {
     Route::post('login', [AuthController::class, 'AdminLogin']);
     Route::middleware('auth:Admin')->group(function () {
@@ -45,11 +50,11 @@ Route::prefix('business')->group(function () {
 Route::prefix('Customer')->group(function () {
     Route::post('signUp', [AuthController::class, 'customerSignup']);
     Route::post('login', [AuthController::class, 'customerLogin']);
+    Route::middleware((\App\Http\Middleware\AuthenticateUser::class))->group(function () {
+            Route::post('all', [CustomerController::class, 'CustomerLists']);
+        });
     Route::middleware(['auth.customer'])->group(function () {
         Route::post('logout', [AuthController::class, 'CustomerLogout']);
-        Route::middleware(['role:Admin,Franchise Owner'])->group(function () {
-            Route::post('all', [AuthController::class, 'businessUsersList']);
-        });
     });
 });
 
@@ -84,8 +89,9 @@ Route::prefix('cart')->middleware(['auth:customer,users'])->group(function () {
     Route::post('checkout', [CartController::class, 'CheckoutFromCart']);
 });
 
-Route::prefix('orders')->group(function () {
+Route::prefix('orders')->middleware(\App\Http\Middleware\AuthenticateUser::class)->group(function () {
     Route::post('all', [OrderController::class, 'OrdersList']);
+    Route::post('{order_id}/details', [OrderController::class, 'OrderDetails']);
     Route::post('{order_id}/place_order', [OrderController::class, 'PlaceOrder']);
     Route::post('{order_id}/summary', [OrderController::class, 'OrderSummary']);
     Route::post('{order_id}/cancel', [OrderController::class, 'CancelOrder']);
@@ -99,8 +105,8 @@ Route::prefix('payment')->middleware(['auth:customer'])->group(function () {
     Route::post('Refund', [PaymentController::class, 'RefundPayment']);
 });
 
-Route::prefix('pos')->middleware(['auth:users'])->group(function () {
-    Route::post('cart/add', [OrderController::class, 'PlaceOrder']);
+Route::prefix('pos')->middleware(['\App\Http\Middleware\AuthenticateUser::class', 'role:Franchise Owner, Store Manager'])->group(function () {
+    Route::post('cart/add', [CartController::class, 'AddToCart']);
     Route::post('orders', [OrderController::class, 'placeorder']);
     Route::post('hold', [OrderController::class, 'holdOrder']);
     Route::post('hold/restore', [OrderController::class, 'restoreOrder']);
@@ -112,10 +118,18 @@ Route::prefix('pos')->middleware(['auth:users'])->group(function () {
 });
 
 Route::prefix('ffl')->group(function () {
+    Route::post('firearms', [fflController::class, 'AddFirearm']);
+    Route::post('acquisition', [fflController::class,'Acquisition']);
     Route::post('logbook', [fflController::class, 'logbook']);
     Route::get('4473-forms', [fflController::class, 'forms']);
     Route::get('multiple-sales', [fflController::class, 'multipleSales']);
     Route::post('multiple-sales', [fflController::class, 'updateMultipleSales']);
-    Route::get('firearms', [fflController::class, 'getStatus']);
+    Route::get('firearms/{id}', [fflController::class, 'getFirearmStatus']);
     Route::get('{id}/history', [fflController::class, 'getHistory']);
+});
+
+Route::prefix('dashboard') ->middleware(\App\Http\Middleware\AuthenticateUser::class)->group(function () {
+    Route::post('/', [DashboardController::class, 'dashboardData']);
+    Route::get('/TopSelling', [DashboardController::class, 'TopSelling']);
+    Route::get('/TopRevenueByLocations', [DashboardController::class, 'TopRevenueByLocations']);
 });

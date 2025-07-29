@@ -7,7 +7,9 @@ use App\Interface\OrderServiceInterface;
 use App\Domains\Orders\Requests\OrderListRequest;
 use App\Http\Resources\ApiResponseResource;
 use App\Http\Resources\OrderResponseResource;
+use App\Http\Resources\OrderDetailsResponseResource;
 use App\Domains\Orders\Requests\OrderSummaryRequest;
+use Illuminate\Support\Facades\Log;
 
 
 
@@ -20,7 +22,12 @@ class OrderController extends Controller
         $this->orderService = $orderService;
     }
 
+
     public function OrdersList(OrderListRequest $request){
+           $payload = $request->all();
+
+    // Log the payload
+    Log::info('Payload received:', ['payload' => $payload]);
         $orders = $this->orderService->getOrderList($request->validated());
         if (!empty($orders)) {
       return new ApiResponseResource(
@@ -39,8 +46,23 @@ class OrderController extends Controller
 
     }
 
+    public function OrderDetails($order_id){
+      $orders = $this->orderService->OrderDetails( $order_id);
+        return new ApiResponseResource(
+            // $orders,
+             new OrderDetailsResponseResource($orders),
+            'order details has been fetched successfully',
+            200
+        );
+    }
+
     public function PlaceOrder($request){
         $orders = $this->orderService->placeOrder($request);
+        return new ApiResponseResource(
+            $orders,
+            'order has been placed successfully',
+            200
+        );
     }
 
     public function OrderSummary( $order_id){
@@ -55,5 +77,10 @@ class OrderController extends Controller
 
     public function CancelOrder($request){
         $orders = $this->orderService->cancelOrder($request);
+        return new ApiResponseResource(
+            $orders,
+            'order has been cancelled successfully',
+            200
+        );
     }
 }

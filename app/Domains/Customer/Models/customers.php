@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
+use App\Models\tenants;
+use App\Domains\Customer\Models\customer_addresses;
 
 class customers extends Authenticatable
 {
@@ -31,6 +33,14 @@ class customers extends Authenticatable
     public function getFullNameAttribute()
 {
     return trim($this->first_name . ' ' . $this->last_name);
+}
+
+public function tenant(){
+    return $this->belongsTo(tenants::class, 'tenant_id', 'tenant_id');
+}
+
+public function customerAddress(){
+    return $this->hasMany(customer_addresses::class, 'customer_id', 'customer_id');
 }
 
     protected static function boot()

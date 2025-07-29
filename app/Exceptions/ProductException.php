@@ -37,5 +37,10 @@ class ProductException  extends Exception
     {
         return new self('No items in cart',200);
     } 
+
+    public static function OutOfStock(): self
+    {
+        return new self('Product is out of stock', 200);
+    }
   
 }

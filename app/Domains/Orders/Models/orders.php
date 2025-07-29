@@ -47,7 +47,7 @@ class orders extends Model
         return $this->belongsTo(tenants::class, 'tenant_id', 'tenant_id');
     }
 
-    public function loaction()
+    public function location()
     {
         return $this->belongsTo(Locations::class, 'location_id', 'location_id');
     }
@@ -63,6 +63,16 @@ class orders extends Model
             $query->where('customer_id', $this->created_by_user_id);
         });
     }
+
+   public function customer_shipping_addresses()
+{
+    return $this->belongsTo(customer_addresses::class, 'address_id', 'address_id');
+}
+
+public function customer_billing_address()
+{
+    return $this->belongsTo(customer_addresses::class, 'address_id', 'address_id');
+}
 
     public function customer_addresses()
     {

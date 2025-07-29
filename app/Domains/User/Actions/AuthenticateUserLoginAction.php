@@ -3,8 +3,9 @@
 namespace App\Domains\User\Actions;
 
 use App\Domains\User\Models\User;
-use Illuminator\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Exceptions\UserException;
 
 class AuthenticateUserLoginAction
 {
@@ -12,35 +13,34 @@ class AuthenticateUserLoginAction
     {
         try {
             $user = User::where('email', $data['email'])
+                ->where('tenant_id', $data['tenant_id'])
                 ->where('location_id', $data['location_id'])
                 ->first();
+
             if (!$user) {
-                return [
-                    'error' => 'false',
-                    'status' => 401,
-                    'message' => 'UnAuthorized Access, InValid User',
-                ];
+                 throw UserException::notFound();
             }
 
             if (!Hash::check($data['password'], $user->password_hash)) {
-                return [
-                    'error' => 'false',
-                    'status' => 401,
-                    'message' => 'UnAuthorized Access, InValid password',
-                ];
+              throw UserException::unauthorized();
             }
+
             $token = $user->createToken('business-token')->plainTextToken;
 
             return [
-                'error' => 'false',
-                'status' => 200,
-                'message' => 'LoggedIn successfully',
-                'data' => [
-                    'token' => $token
-                ]
-            ];
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
+                    'token' => $token,
+                    'user' => [  
+                        'name' => $user->full_name,
+                        'email' => $user->email,
+                        'role' => $user->role->role_name,
+                         'tenant' => $user->tenant->name,
+                    'location' => $user->location->name??null,
+                    ],
+                ];
+        } catch (UserException $e) {
+            throw $e;
+        } catch (\Throwable $e) {
+            throw $e->getMessage();
         }
     }
 }

@@ -11,6 +11,7 @@ class UpdateCartAction
        $order_items = order_items::findorFail($order_items_id);
        $order_items->quantity = $request["quantity"];
        $order_items->save();
+       return $order_items;
     }
 }
 ?>

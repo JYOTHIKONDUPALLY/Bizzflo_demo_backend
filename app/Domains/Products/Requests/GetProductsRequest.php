@@ -12,9 +12,9 @@ class GetProductsRequest extends BaseApiRequest
  public function rules() :array 
  {
     return [
-        'page' => 'numeric',
+        'page' => 'numeric|nullable',
         'order' => 'in:asc,desc',
-        'limit' => 'numeric',
+        'limit' => 'numeric|nullable',
         'search'=> 'string|nullable',
         'id' => 'string|nullable',
         
