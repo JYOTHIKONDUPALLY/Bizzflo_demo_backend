@@ -6,12 +6,17 @@ use App\Domains\Orders\Models\orders;
 use App\Domains\Orders\Models\order_items;
 use App\Domains\Customer\Models\customers;
 use App\Domains\Customer\Models\customer_addresses;
+use App\Exceptions\UserException;
+use Illuminate\Support\Facades\Auth;
 
 class OrderSummaryAction
 {
     public function handle(  $id)
     {
-    //   $orderId = $request->order_id;
+            $User = Auth::guard('users')->user();
+        if (!$User) {
+            throw UserException::unauthorized();
+        }
       $result=[];
       $order = orders::findorFail($id);
                 $order_items = order_items::where('order_id', $order->order_id)->get();

@@ -2,14 +2,22 @@
 
 namespace App\Domains\Products\Actions;
 use App\Domains\Products\Models\Products;
+use Illuminate\Support\Facades\Auth;
+use App\Exceptions\UserException;
 
 class GetAllProductsAction
 {
     public function handle($search, $sort, $order, $limit, $id)
     {
         try {
+             $User = Auth::guard('users')->user();
+      if (!$User) {
+                throw UserException::unauthorized();
+            }
+            $tenant_id = $User->tenant_id;
 
             $query = Products::query();
+            $query->where('tenant_id', $tenant_id);
 
             if (!empty($search)) {
                 $query->where('name', 'like', '%' . $search . '%');

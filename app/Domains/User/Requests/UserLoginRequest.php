@@ -13,6 +13,7 @@ class UserLoginRequest extends BaseApiRequest
         return [
             'email'=>'required|string|email|max:225',
             'password'=>'required|string|min:8',
+            'tenant_id'=>'required|string|max:225',
             'location_id'=>'required|string|max:255'
         ];
     }

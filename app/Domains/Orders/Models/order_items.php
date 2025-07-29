@@ -3,7 +3,7 @@
 namespace App\Domains\Orders\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use APp\Domains\Products\Models\products;
+use App\Domains\Products\Models\products;
 use Illuminate\Support\Str;
 use App\Models\product_variants;
 
@@ -30,6 +30,12 @@ class order_items extends Model
     {
         return $this->belongsTo(products::class, 'product_id', 'product_id');
     }
+
+    public function order()
+    {
+        return $this->belongsTo(orders::class, 'order_id', 'order_id');
+    }
+
 
     public function varinat()
     {

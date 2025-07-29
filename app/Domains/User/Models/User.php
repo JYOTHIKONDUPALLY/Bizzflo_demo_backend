@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use App\Models\Roles;
 use App\Models\locations;
 use App\Models\Permissions;
+use App\Models\tenants;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -64,6 +65,10 @@ class User extends Authenticatable
 public function location()
 {
     return $this->belongsTo(Locations::class , 'location_id', 'location_id');
+}
+
+public function tenant(){
+    return $this->belongsTo(tenants::class, 'tenant_id', 'tenant_id');
 }
 
 public function getFullNameAttribute()
