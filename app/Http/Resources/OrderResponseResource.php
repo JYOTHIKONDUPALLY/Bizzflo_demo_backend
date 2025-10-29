@@ -12,7 +12,12 @@ class OrderResponseResource extends JsonResource
             'order_id' => $this->order_id,
             'tenant' => $this->tenant->name ?? null,
             'location' => $this->location->name ?? null,
+<<<<<<< HEAD
             'customer' => $this->customer->name ?? null,
+=======
+            'customer' => $this->customer->full_name ?? null,
+            'order_status' => $this->status,
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
             'order_date' => $this->order_date,
             'order_type' => $this->order_type,
             'subtotal' => $this->subtotal,
@@ -21,6 +26,7 @@ class OrderResponseResource extends JsonResource
             'shipping_cost' => $this->shipping_cost,
             'total_amount' => $this->total_amount,
             'payment_status' => $this->payment_status,
+<<<<<<< HEAD
             'payment_method' => $this->payment_method,
             'order_items' => collect($this->order_items)->map(function ($item) {
                 return [
@@ -54,6 +60,10 @@ class OrderResponseResource extends JsonResource
                     $this->customer_addresses->state ?? '',
                 ]))
                 : null,
+=======
+            'payment_method' => $this->payment_method
+   
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
         ];
     }
 }

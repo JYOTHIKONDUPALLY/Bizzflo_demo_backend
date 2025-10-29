@@ -7,6 +7,11 @@ use App\Interface\CartServiceInterface;
 use App\Http\Resources\CartResource;
 use App\Domains\Cart\Requests\{AddRequest,CheckoutRequest};
 use App\Http\Resources\ApiResponseResource;
+<<<<<<< HEAD
+=======
+use App\Exceptions\UserException;
+use App\Exceptions\ProductException;
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
 
 class CartController extends Controller
 {
@@ -24,9 +29,41 @@ class CartController extends Controller
 
     }
     public function AddToCart(AddRequest $request) {
+<<<<<<< HEAD
         $validated = $request->validated();
         $cart = $this->cartService->AddToCart($validated);
         return new ApiResponseResource($cart,"Added to Cart!!", 200);
+=======
+        try{
+
+            $validated = $request->validated();
+        $cart = $this->cartService->AddToCart($validated);
+        return new ApiResponseResource($cart,"Added to Cart!!", 200);
+        }catch (UserException $e) {
+            return response()->json(new ApiResponseResource(
+                null,
+                $e->getMessage(),
+                $e->getCode() ?: 401,
+                true
+            ), $e->getCode() ?: 401);
+        }catch (ProductException $e){
+            return response()->json(new ApiResponseResource(
+                null,
+                $e->getMessage(),
+                $e->getCode() ?: 400,
+                true
+            ), $e->getCode() ?: 400);
+        } catch (\Throwable $e) {
+            return response()->json(new ApiResponseResource(
+                null,
+                'Internal Server Error: ' . $e->getMessage(),
+                500
+            ), 500);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred', $e->getMessage()], 500);
+        }
+        
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
     }
 
     public function RemoveFromCart($request) {

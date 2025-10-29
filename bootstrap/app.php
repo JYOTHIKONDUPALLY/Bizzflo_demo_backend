@@ -11,6 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+<<<<<<< HEAD
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
@@ -23,6 +24,24 @@ return Application::configure(basePath: dirname(__DIR__))
 $middleware->api(prepend: [
     \App\Http\Middleware\CorsMiddleware::class,
 ]);
+=======
+    ->withMiddleware(function (Middleware $middleware) {
+        // Add CORS middleware globally
+        $middleware->append(\Illuminate\Http\Middleware\HandleCors::class);
+        
+        // Or add it to specific groups
+        $middleware->group('api', [
+            \Illuminate\Http\Middleware\HandleCors::class,
+            // other middleware...
+        ]);
+         $middleware->alias([
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
+        'auth.user' => \App\Http\Middleware\AuthenticateUser::class,
+        'auth.customer' => \App\Http\Middleware\AuthenticateCustomer::class,
+        'auth.admin' => \App\Http\Middleware\AuthenticateAdmin::class
+        ]);
+
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

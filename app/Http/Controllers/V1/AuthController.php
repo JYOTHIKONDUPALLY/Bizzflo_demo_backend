@@ -16,6 +16,10 @@ use App\Interface\AdminServiceInterface;
 use App\Domains\Admin\Services\AdminService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
+<<<<<<< HEAD
+=======
+use App\Exceptions\UserException;
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
 
 class AuthController extends Controller
 {
@@ -40,6 +44,7 @@ class AuthController extends Controller
       );
    }
 
+<<<<<<< HEAD
    function businessLogin(UserLoginRequest $request)
    {
       $validator = $request->validated();
@@ -49,6 +54,32 @@ class AuthController extends Controller
          'Business User has been logged successfully',
          200
       );
+=======
+   function businessLogin(UserLoginRequest $request){
+   try{
+      $validator = $request->validated();
+      $data = $this->userService->loginBusinessUser($validator);
+      return new ApiResponseResource(
+         $data,
+         'Business User has been logged successfully',
+         200
+      );
+   }catch (UserException $e) {
+        return response()->json(new ApiResponseResource(
+            null,
+            $e->getMessage(),
+            $e->getCode() ?: 401,
+            true
+        ), $e->getCode() ?: 401);
+
+    } catch (\Throwable $e) {
+        return response()->json(new ApiResponseResource(
+            null,
+            'Internal Server Error: ' . $e->getMessage(),
+            500
+        ), 500);
+    }
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
    }
 
    function businessLogout(Request $request){

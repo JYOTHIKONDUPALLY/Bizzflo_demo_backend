@@ -47,7 +47,11 @@ class orders extends Model
         return $this->belongsTo(tenants::class, 'tenant_id', 'tenant_id');
     }
 
+<<<<<<< HEAD
     public function loaction()
+=======
+    public function location()
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
     {
         return $this->belongsTo(Locations::class, 'location_id', 'location_id');
     }
@@ -64,6 +68,19 @@ class orders extends Model
         });
     }
 
+<<<<<<< HEAD
+=======
+   public function customer_shipping_addresses()
+{
+    return $this->belongsTo(customer_addresses::class, 'address_id', 'address_id');
+}
+
+public function customer_billing_address()
+{
+    return $this->belongsTo(customer_addresses::class, 'address_id', 'address_id');
+}
+
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
     public function customer_addresses()
     {
         return $this->belongsTo(customer_addresses::class, 'address_id', 'address_id');

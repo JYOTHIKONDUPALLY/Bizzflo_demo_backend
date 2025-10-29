@@ -13,7 +13,11 @@ class ffl_licensees extends Model
      protected $keyType ='string';
      public $incrementing=false;
      protected $fillable = [
+<<<<<<< HEAD
         'loaction_id',
+=======
+        'location_id',
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
         'tenant_id',
         'ffl_number',
         'licensee_name', 

@@ -8,6 +8,11 @@ use App\Http\Resources\ProductResource;
 use App\Domains\Products\Requests\{GetProductsRequest,CreateProductRequest,DeleteProductRequest,AddInventoryRequest,UpdateInventoryRequest};
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\ApiResponseResource;
+<<<<<<< HEAD
+=======
+use App\Exceptions\UserException;
+use App\Exceptions\ProductException;
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
 use Illuminate\Database\Eloquent\Casts\Json;
 
 class ProductController extends Controller
@@ -31,10 +36,38 @@ class ProductController extends Controller
             );
             // return ProductResource::collection($products);
              return new ApiResponseResource(
+<<<<<<< HEAD
                $products,
                 '',
                 200
             );
+=======
+            //    $products,
+            ProductResource::collection($products),
+            'Products fetched successfully',
+                200
+            );
+        }catch (UserException $e) {
+            return response()->json(new ApiResponseResource(
+                null,
+                $e->getMessage(),
+                $e->getCode() ?: 401,
+                true
+            ), $e->getCode() ?: 401);
+        }catch (ProductException $e){
+            return response()->json(new ApiResponseResource(
+                null,
+                $e->getMessage(),
+                $e->getCode() ?: 400,
+                true
+            ), $e->getCode() ?: 400);
+        } catch (\Throwable $e) {
+            return response()->json(new ApiResponseResource(
+                null,
+                'Internal Server Error: ' . $e->getMessage(),
+                500
+            ), 500);
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred', $e->getMessage()], 500);
         }

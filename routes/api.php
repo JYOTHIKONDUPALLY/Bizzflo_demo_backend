@@ -9,12 +9,22 @@ use App\Http\Controllers\V1\{
     UserController,
     OrderController,
     PaymentController,
+<<<<<<< HEAD
     fflController
 };
 
 
 // Handle preflight requests
 
+=======
+    fflController, 
+    DashboardController,
+    CustomerController
+};
+
+
+    // Route::get('multiple-sales', [fflController::class, 'multipleSales']);
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
 Route::get('tenants-with-locations', [TenantController::class, 'getTenantsWithLocations']);
 Route::prefix("Admin")->group(function () {
     Route::post('login', [AuthController::class, 'AdminLogin']);
@@ -49,11 +59,19 @@ Route::prefix('business')->group(function () {
 Route::prefix('Customer')->group(function () {
     Route::post('signUp', [AuthController::class, 'customerSignup']);
     Route::post('login', [AuthController::class, 'customerLogin']);
+<<<<<<< HEAD
     Route::middleware(['auth.customer'])->group(function () {
         Route::post('logout', [AuthController::class, 'CustomerLogout']);
         Route::middleware(['role:Admin,Franchise Owner'])->group(function () {
             Route::post('all', [AuthController::class, 'businessUsersList']);
         });
+=======
+    Route::middleware((\App\Http\Middleware\AuthenticateUser::class))->group(function () {
+            Route::post('all', [CustomerController::class, 'CustomerLists']);
+        });
+    Route::middleware(['auth.customer'])->group(function () {
+        Route::post('logout', [AuthController::class, 'CustomerLogout']);
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
     });
 });
 
@@ -88,8 +106,14 @@ Route::prefix('cart')->middleware(['auth:customer,users'])->group(function () {
     Route::post('checkout', [CartController::class, 'CheckoutFromCart']);
 });
 
+<<<<<<< HEAD
 Route::prefix('orders')->group(function () {
     Route::post('all', [OrderController::class, 'OrdersList']);
+=======
+Route::prefix('orders')->middleware(\App\Http\Middleware\AuthenticateUser::class)->group(function () {
+    Route::post('all', [OrderController::class, 'OrdersList']);
+    Route::post('{order_id}/details', [OrderController::class, 'OrderDetails']);
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
     Route::post('{order_id}/place_order', [OrderController::class, 'PlaceOrder']);
     Route::post('{order_id}/summary', [OrderController::class, 'OrderSummary']);
     Route::post('{order_id}/cancel', [OrderController::class, 'CancelOrder']);
@@ -103,8 +127,13 @@ Route::prefix('payment')->middleware(['auth:customer'])->group(function () {
     Route::post('Refund', [PaymentController::class, 'RefundPayment']);
 });
 
+<<<<<<< HEAD
 Route::prefix('pos')->middleware(['auth:users'])->group(function () {
     Route::post('cart/add', [OrderController::class, 'PlaceOrder']);
+=======
+Route::prefix('pos')->middleware(['\App\Http\Middleware\AuthenticateUser::class', 'role:Franchise Owner, Store Manager'])->group(function () {
+    Route::post('cart/add', [CartController::class, 'AddToCart']);
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
     Route::post('orders', [OrderController::class, 'placeorder']);
     Route::post('hold', [OrderController::class, 'holdOrder']);
     Route::post('hold/restore', [OrderController::class, 'restoreOrder']);
@@ -125,3 +154,12 @@ Route::prefix('ffl')->group(function () {
     Route::get('firearms/{id}', [fflController::class, 'getFirearmStatus']);
     Route::get('{id}/history', [fflController::class, 'getHistory']);
 });
+<<<<<<< HEAD
+=======
+
+Route::prefix('dashboard') ->middleware(\App\Http\Middleware\AuthenticateUser::class)->group(function () {
+    Route::post('/', [DashboardController::class, 'dashboardData']);
+    Route::get('/TopSelling', [DashboardController::class, 'TopSelling']);
+    Route::get('/TopRevenueByLocations', [DashboardController::class, 'TopRevenueByLocations']);
+});
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a

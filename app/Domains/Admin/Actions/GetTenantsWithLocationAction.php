@@ -32,7 +32,11 @@ class GetTenantsWithLocationAction
                 $result[] = [
                     'tenant_id' => optional($first->tenant)->tenant_id,
                     'tenant_name' => $tenantName,
+<<<<<<< HEAD
                     // 'locations' => $locationGroup->pluck('loaction_id','name')->values()->all()
+=======
+                    // 'locations' => $locationGroup->pluck('location_id','name')->values()->all()
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
                     'locations' => $locationGroup->map(function ($loc) {
                         return [
                             'id' => $loc->location_id,

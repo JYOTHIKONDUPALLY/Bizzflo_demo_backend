@@ -11,6 +11,10 @@ use Illuminate\Support\Str;
 use App\Models\Roles;
 use App\Models\locations;
 use App\Models\Permissions;
+<<<<<<< HEAD
+=======
+use App\Models\tenants;
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -66,6 +70,13 @@ public function location()
     return $this->belongsTo(Locations::class , 'location_id', 'location_id');
 }
 
+<<<<<<< HEAD
+=======
+public function tenant(){
+    return $this->belongsTo(tenants::class, 'tenant_id', 'tenant_id');
+}
+
+>>>>>>> 06caea9a819f808ad58d5ff3ac872d51153c422a
 public function getFullNameAttribute()
 {
     return trim($this->first_name . ' ' . $this->last_name);
